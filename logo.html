@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Beeh!ve Logo</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Full viewport height */
+      background: transparent; /* Clear background */
+      overflow: hidden; /* Hide scrollbars */
+      perspective: 1200px; /* Enables 3D perspective */
+      font-family: 'Arial', sans-serif; /* Clean font style */
+    }
 
+    .logo-container {
+      width: 420px; /* Container width */
+      height: 480px; /* Container height */
+      transform-style: preserve-3d; /* Allow 3D child transformations */
+      transition: transform 0.05s ease-out; /* Smooth tilt transition */
+      position: relative; /* For the image overlay */
+    }
+
+    .logo {
+      width: 100%;
+      height: 100%;
+      background: url('logo.png') no-repeat center center; /* Use the logo image */
+      background-size: contain; /* Scale the image properly */
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo container -->
+  <div class="logo-container">
+    <!-- Logo element with the uploaded image -->
+    <div class="logo"></div>
+  </div>
+
+  <script>
+    // Select the logo container
+    const container = document.querySelector('.logo-container');
+
+    // Listen to mouse movement on the document
+    document.addEventListener('mousemove', (event) => {
+      const { clientX, clientY } = event; // Get mouse position
+      const { innerWidth, innerHeight } = window; // Get screen size
+
+      // Sharpen tilt angles for a more pronounced effect
+      const rotateX = ((clientY / innerHeight) - 0.5) * -60; // Tilt towards mouse (vertical)
+      const rotateY = ((clientX / innerWidth) - 0.5) * 60; // Tilt towards mouse (horizontal)
+
+      // Apply the calculated 3D rotation to the container
+      container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+  </script>
+</body>
+</html>
